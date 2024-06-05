@@ -1,23 +1,32 @@
 import React from 'react';
 import classes from './Navbar.module.css';
+import { NavLink } from 'react-router-dom';
 
+const getClassName = ({ isActive }) => {
+    let className = classes.item;
+    if (isActive) {
+      className += ` ${classes.active}`;
+    }
+    return className;
+  };
+  //Мы проверяем, активен ли текущий маршрут с помощью isActive, и если да, добавляем класс активного элемента (classes.active).
 
 const Navbar = () => {
     return <nav className={classes.nav}>
         <div className={classes.item}>
-            <a href='/profile'>Profile</a>
+            <NavLink to='/profile' className={getClassName}>Profile</NavLink>
         </div>
         <div className={classes.item}>
-            <a href='/dialogs'>Messages</a>
+            <NavLink to='/dialogs' className={getClassName}>Messages</NavLink>
         </div>
         <div className={classes.item}>
-            <a href='/news'>News</a>
+            <NavLink to='/news' className={getClassName}>News</NavLink>
         </div>
         <div className={classes.item}>
-            <a href='/music'>Music</a>
+            <NavLink to='/music' className={getClassName}>Music</NavLink>
         </div>
         <div className={classes.item}>
-            <a href='/settings1'>Settings</a>
+            <NavLink to='/settings1' className={getClassName}>Settings</NavLink>
         </div>
     </nav>
 }
