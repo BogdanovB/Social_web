@@ -10,6 +10,7 @@ const getClassName = ({ isActive }) => {
     return className;
   };
   //Мы проверяем, активен ли текущий маршрут с помощью isActive, и если да, добавляем класс активного элемента (classes.active).
+  //этим самым мы меняем нажатой сссылке цвет 
 
 const Navbar = () => {
     return <nav className={classes.nav}>
