@@ -16,4 +16,6 @@
 }
 
 
-.messages .message {}
+.messages .message {
+    color:aliceblue;
+}
