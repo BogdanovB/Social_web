@@ -11,7 +11,7 @@ let renderEntireTree = (state) => {
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
-      <App state={state} dispatch={store.dispatch.bind(store)} /> {/*{dispatch} это функция которую я импортировал из state, которая добавляет пост. делаю bind потому что addPost не вызывается сейяас а прокидывается дальше */}
+      <App state={state} dispatch={store.dispatch.bind(store)} store={store} /> {/*{dispatch} это функция которую я импортировал из state, которая добавляет пост. делаю bind потому что addPost не вызывается сейяас а прокидывается дальше */}
     </React.StrictMode>
   );
 };

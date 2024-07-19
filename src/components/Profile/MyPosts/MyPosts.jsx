@@ -1,6 +1,9 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Posts/Post';
+import { addPostActionCreator } from '../../../redux/state';
+import { updateNewPostTextActionCreator } from '../../../redux/state';
+
 
 const MyPosts = (props) => {
 
@@ -12,14 +15,16 @@ const MyPosts = (props) => {
 
     let addPost = () => {
         //props.dispatch();
-        props.dispatch({ type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator());
     }
 
 //создаю логику где то что мы пишем отправляется в state а потом перерисовывается.
     let onPostChange = () => {
         let text = newPostElement.current.value;
        // props.dispatch(text);
-       props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: text})
+      // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text}
+       let action = updateNewPostTextActionCreator(text);
+       props.dispatch(action);
     }
 
 

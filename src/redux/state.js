@@ -1,3 +1,10 @@
+const ADD_POST = 'ADD-POST';
+
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+const SEND_MESSAGE = 'SEND_MESSAGE';
+
 let store = {
     _state: {
 
@@ -14,7 +21,8 @@ let store = {
                 { id: 2, message: 'How are you' },
                 { id: 3, message: 'Yo' },
                 { id: 4, message: 'Yo' }
-            ]
+            ],
+            newMessageBody: ""
         },
      
         profilePage: {
@@ -36,12 +44,12 @@ let store = {
     },
 
 
-    subscribe(observer) {
+    subscribe(observer) {// ПАТЕРН НАБЛЮДАТЕЛЬ - OBSERVER
         this._callSubscriber = observer;
     },
 
-    dispatch(action) {
-        if(action.type === 'ADD-POST'){
+    dispatch(action) {//наш state меняется через dispatch actions
+        if(action.type === ADD_POST){
             let newPost = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -51,12 +59,46 @@ let store = {
             this._state.profilePage.posts.push(newPost); // в коннец массива добавляет новый жлемент 
             this._state.profilePage.newPostText = '';//делаю пустую строку после добавления
             this._callSubscriber(this._state);
-        }else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        }else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText; // обновляем данный введенные в текстбар
         this._callSubscriber(this._state);//перерисовывваем все дерево
+        }else if (action.type === UPDATE_NEW_MESSAGE_BODY) { //пользователь вводи сообщения 
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber(this._state);
+        }else if (action.type === SEND_MESSAGE) { //
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody ='';
+            this._state.dialogsPage.messages.push({ id: 6, message: body}); // записываю в новые сообщения то что написал пользователь
+            this._callSubscriber(this._state);
         }
     }
   
+}
+
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+
+export const updateNewPostTextActionCreator = (text) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT, newText: text
+    }
+}
+
+
+
+export const sendMessageCreator = () => {
+    return {
+        type: SEND_MESSAGE
+    }
+}
+
+export const updateNewMessageBodyCreator = (body) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY, body: body //этот body идет от этого условия (action.type === UPDATE_NEW_MESSAGE_BODY)
+    }
 }
 
 export default store;
