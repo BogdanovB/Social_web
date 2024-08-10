@@ -4,6 +4,8 @@ import Post from './Posts/Post';
 import { updateNewPostTextActionCreator, addPostActionCreator } from '../../../redux/profile-reducer';
 
 
+
+
 const MyPosts = (props) => {
 
     let postsElements = props.posts.map ( (p) => {return ( <Post message={p.message} likesCount={p.likesCount} /> )} )
@@ -12,18 +14,14 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef();//создай ссылку. он создает ссылку жтот метод 
 
-    let addPost = () => {
-        //props.dispatch();
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
     }
 
 //создаю логику где то что мы пишем отправляется в state а потом перерисовывается.
     let onPostChange = () => {
         let text = newPostElement.current.value;
-       // props.dispatch(text);
-      // let action = {type: 'UPDATE-NEW-POST-TEXT', newText: text}
-       let action = updateNewPostTextActionCreator(text);
-       props.dispatch(action);
+        props.updateNewPostText(text);
     }
 
 
@@ -36,7 +34,7 @@ const MyPosts = (props) => {
                             value={props.newPostText}/>
             </div>
             <div>
-                <button onClick={ (addPost) }>Add post</button>
+                <button onClick={ (onAddPost) }>Add post</button>
             </div>
         </div>
 

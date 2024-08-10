@@ -1,6 +1,6 @@
 //функция которая принимает state / action и возвращает измененный state
-
-const sidebarReducer = (state, action) => {
+let initialState = {}
+const sidebarReducer = (state = initialState, action) => {
 
     return state;
 }
